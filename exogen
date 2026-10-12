@@ -945,12 +945,13 @@ aimbot_section4:AddToggle('fov_enabled_config', {
 
 aimbot_section4:AddSlider('fov_radius_config', {
     Text = 'fov radius',
-    Default = 10,
+    Default = 100,
     Min = 0,
     Max = 500,
     Rounding = 2,
     Compact = false,
     Callback = function(Value)
+        getgenv().SilentAimFOV = Value
         if FovCircle then
             FovCircle.Radius = Value
         end

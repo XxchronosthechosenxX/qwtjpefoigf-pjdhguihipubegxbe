@@ -709,10 +709,23 @@ RunService.Heartbeat:Connect(function(dt)
 end)
 --
 RunService.Heartbeat:Connect(function()
+	if bullet_tp then
+		local target = LockedTarget or camlock_target
+		if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+			local part = target.Character.HumanoidRootPart
+			local predictedPos = part.Position + (part.Velocity * getPrediction())
+			local screenPos, onScreen = Camera:WorldToViewportPoint(predictedPos)
+			if onScreen then
+				mousemoveabs(screenPos.X, screenPos.Y)
+			end
+		end
+	end
+	--
 	if getgenv().SilentAim1 then
 		local mousePos = uis:GetMouseLocation()
-		FovCircle.Position = mousePos
-		--
+		FovCircle.Position = mousePos		
+            --
+
         local new_target = getClosestTargetToMouse()
 
         if new_target ~= LockedTarget then
